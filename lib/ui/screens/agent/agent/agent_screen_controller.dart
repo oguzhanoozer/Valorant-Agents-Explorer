@@ -43,7 +43,7 @@ final class AgentScreenController extends BaseScreenController<DefaultScreenArgs
 
   List<AgentData> favoriteAgentList = [];
   final Rx<void> fetchNotifier = Rx<void>(null);
-  final Rxn<AgentData>? updateAgentNotifier = Rxn<AgentData>(null);
+  final Rxn<Map<String, dynamic>>? updateAgentNotifier = Rxn<Map<String, dynamic>>(null);
   final List<PageItem> pages;
 
   int get pageSize => _requestPageSize;
@@ -126,14 +126,19 @@ final class AgentScreenController extends BaseScreenController<DefaultScreenArgs
     notifyListeners();
   }
 
+  void notifyUpdate(int index, AgentData updatedAgent) {
+    agentList[index] = updatedAgent;
+    Map<String, dynamic> updateMap = {"index": index, "agent": updatedAgent};
+    updateAgentNotifier?.call(set: () => updateMap);
+    updateAgentNotifier?.refresh();
+  }
+
   void updateAgent(AgentData updatedAgent, {required bool isFavorite, FavoriteModel? favoriteModel}) {
     final int index = agentList.indexWhere((agent) => agent.uuid == updatedAgent.uuid);
     updateAgentNotifier?.value = null;
 
     if (index != -1) {
-      agentList[index] = updatedAgent;
-      updateAgentNotifier?.call(set: () => updatedAgent);
-      updateAgentNotifier?.refresh();
+      notifyUpdate(index, updatedAgent);
     }
     fetchNotifier.refresh();
     notifyListeners();

@@ -32,8 +32,7 @@ class LazyListView<T> extends StatefulWidget {
 
   final List<T>? dataHolder;
   final Rx<void>? fetchNotifier;
-  final Rxn<AgentData>? updateAgentNotifier;
-
+  final Rxn<Map<String, dynamic>>? updateAgentNotifier;
   final Widget skeleton;
   final String emptyString;
   final int pageSize;
@@ -56,13 +55,9 @@ class _LazyListViewState<T> extends State<LazyListView<T>> {
     data = widget.dataHolder ?? <T>[];
     widget.fetchNotifier?.addListener(() => Future<void>.microtask(() => fetch()));
     widget.updateAgentNotifier?.addListener(() {
-      final updateAgent = widget.updateAgentNotifier?.value;
-      if (updateAgent?.uuid != null) {
-        final int index = data.indexWhere((agentValue) => (agentValue as AgentData).uuid == updateAgent?.uuid);
-        if (index != -1) {
-          (data as List<AgentData>)[index] = (data as List<AgentData>)[index].copyWith(isFavorite: updateAgent?.isFavorite, favoriteModel: updateAgent?.favoriteModel);
-          _setState(() {});
-        }
+      final updateMap = widget.updateAgentNotifier?.value;
+      if (updateMap != null) {
+        updateAgent(updateMap);
       }
     });
     fetch();
@@ -80,6 +75,18 @@ class _LazyListViewState<T> extends State<LazyListView<T>> {
   void dispose() {
     _scrollController.dispose();
     super.dispose();
+  }
+
+  void updateAgent(Map<String, dynamic> updateMap) {
+    {
+      final updateAgent = updateMap['agent'] as AgentData?;
+      final index = updateMap['index'] as int;
+      (data as List<AgentData>)[index] = (data as List<AgentData>)[index].copyWith(
+        isFavorite: updateAgent?.isFavorite,
+        favoriteModel: updateAgent?.favoriteModel,
+      );
+      _setState(() {});
+    }
   }
 
   Future<void> fetch([int page = 0]) async {
