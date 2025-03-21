@@ -43,6 +43,7 @@ final class AgentScreenController extends BaseScreenController<DefaultScreenArgs
 
   List<AgentData> favoriteAgentList = [];
   final Rx<void> fetchNotifier = Rx<void>(null);
+  final Rxn<AgentData>? updateAgentNotifier = Rxn<AgentData>(null);
   final List<PageItem> pages;
 
   int get pageSize => _requestPageSize;
@@ -126,16 +127,19 @@ final class AgentScreenController extends BaseScreenController<DefaultScreenArgs
   }
 
   void updateAgent(AgentData updatedAgent, {required bool isFavorite, FavoriteModel? favoriteModel}) {
-    final int index = _visibleAgents.indexWhere((agent) => agent.uuid == updatedAgent.uuid);
+    final int index = agentList.indexWhere((agent) => agent.uuid == updatedAgent.uuid);
+    updateAgentNotifier?.value = null;
+
     if (index != -1) {
-//      agentList[index].copyWith(isFavorite: false, favoriteModel: null);
-      _visibleAgents[index] = updatedAgent;
+      agentList[index] = updatedAgent;
+      updateAgentNotifier?.call(set: () => updatedAgent);
+      updateAgentNotifier?.refresh();
     }
     fetchNotifier.refresh();
     notifyListeners();
   }
 
-  int currentIndex(String uuid) => _visibleAgents.indexWhere((agent) => agent.uuid == uuid);
+  int currentIndex(String uuid) => agentList.indexWhere((agent) => agent.uuid == uuid);
 
   Future<void> showFavoriteDialog(AgentData agent, {bool isForFavorite = false}) async {
     String? option;

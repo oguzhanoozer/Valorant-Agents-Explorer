@@ -24,12 +24,13 @@ final class AgentScreenListView extends StatelessWidget with BaseScreenWidgetMix
         viewModelBuilder: () => controller,
         builder: (context, controller, child) {
           return LazyListView<AgentData>(
-            dataHolder: controller.agentList,
             skeleton: const AgentScreenListSkeleton(),
             emptyString: AppStrings.login(),
+            updateAgentNotifier: controller.updateAgentNotifier,
             pageSize: controller.pageSize,
             onFetch: controller.fetch,
             itemBuilder: (BuildContext context, AgentData agentItem) {
+              print("ozi");
               return AgentListTile(
                 agent: agentItem,
                 onTap: () => controller.onTapListItem(agentItem),

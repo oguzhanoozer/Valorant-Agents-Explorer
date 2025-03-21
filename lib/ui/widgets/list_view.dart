@@ -1,3 +1,5 @@
+import 'package:agents_explorer/core/models/agents/api/agent_model.dart';
+import 'package:agents_explorer/core/utils/app_functions.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/configs/constants/app_icons.dart';
@@ -20,6 +22,7 @@ class LazyListView<T> extends StatefulWidget {
     super.key,
     this.dataHolder,
     this.fetchNotifier,
+    this.updateAgentNotifier,
     required this.skeleton,
     required this.emptyString,
     required this.pageSize,
@@ -29,6 +32,7 @@ class LazyListView<T> extends StatefulWidget {
 
   final List<T>? dataHolder;
   final Rx<void>? fetchNotifier;
+  final Rxn<AgentData>? updateAgentNotifier;
 
   final Widget skeleton;
   final String emptyString;
@@ -51,6 +55,16 @@ class _LazyListViewState<T> extends State<LazyListView<T>> {
     super.initState();
     data = widget.dataHolder ?? <T>[];
     widget.fetchNotifier?.addListener(() => Future<void>.microtask(() => fetch()));
+    widget.updateAgentNotifier?.addListener(() {
+      final updateAgent = widget.updateAgentNotifier?.value;
+      if (updateAgent?.uuid != null) {
+        final int index = data.indexWhere((agentValue) => (agentValue as AgentData).uuid == updateAgent?.uuid);
+        if (index != -1) {
+          (data as List<AgentData>)[index] = (data as List<AgentData>)[index].copyWith(isFavorite: updateAgent?.isFavorite, favoriteModel: updateAgent?.favoriteModel);
+          _setState(() {});
+        }
+      }
+    });
     fetch();
 
     _scrollController.addListener(() {
@@ -91,8 +105,8 @@ class _LazyListViewState<T> extends State<LazyListView<T>> {
 
       _setState(() {
         final newData = List<T>.from(data);
-        newData.addAll(result);
-        data = newData;
+        data.addAll(result);
+        //data = newData;
         hasMore = result.length == widget.pageSize;
         isFetching = false;
       });
