@@ -8,6 +8,23 @@ import 'package:intl/intl.dart';
 import '../../utils/app_logger.dart';
 import '../base_service.dart';
 
+enum LanguageCode {
+  tr("tr-TR"),
+  en("en-US");
+
+  final String locale;
+  const LanguageCode(this.locale);
+
+  String getLocale() => locale;
+
+  static LanguageCode fromString(String code) {
+    return LanguageCode.values.firstWhere(
+      (lang) => lang.name == code,
+      orElse: () => LanguageCode.en,
+    );
+  }
+}
+
 const List<Locale> supportedLocales = <Locale>[
   Locale('tr'),
   Locale('en'),

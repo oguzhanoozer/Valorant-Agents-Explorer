@@ -8,13 +8,11 @@ import 'package:agents_explorer/core/routing/app_navigation.dart';
 import 'package:agents_explorer/core/routing/app_router.dart';
 import 'package:agents_explorer/core/services/local_storage/local_storage_service.dart';
 import 'package:agents_explorer/core/utils/dialog_utils.dart';
-import 'package:agents_explorer/core/utils/toast.dart';
 import 'package:agents_explorer/ui/screens/agent/agent_detail/agent_detail_screen_args.dart';
 import 'package:agents_explorer/ui/screens/base_screen_args.dart';
 import 'package:agents_explorer/ui/screens/base_screen_controller.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../core/exceptions/api_exception.dart';
 import '../../../../../core/models/result.dart';
@@ -41,6 +39,8 @@ final class AgentScreenController extends BaseScreenController<DefaultScreenArgs
   final Service<LocalStorageService> _localStorageService;
   final GlobalKey<ScaffoldState> mapScaffoldKey = GlobalKey<ScaffoldState>();
   List<AgentData> agentList = [];
+  List<AgentData> _visibleAgents = [];
+
   List<AgentData> favoriteAgentList = [];
   final Rx<void> fetchNotifier = Rx<void>(null);
   final List<PageItem> pages;
@@ -67,7 +67,6 @@ final class AgentScreenController extends BaseScreenController<DefaultScreenArgs
   @override
   Future<void> onInitState() async {
     super.onInitState();
-    _initializeAppFunctions();
   }
 
   @override
@@ -78,8 +77,7 @@ final class AgentScreenController extends BaseScreenController<DefaultScreenArgs
 
   Future<List<AgentData>> loadFavorites(int page) async {
     try {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      final String? favoritesJson = prefs.getString('favoriteAgents');
+      final String? favoritesJson = await _localStorageService().read(Keys.favoriteAgents);
       if (favoritesJson != null) {
         final List<dynamic> favoritesList = jsonDecode(favoritesJson);
         List<AgentData> tempList = [];
@@ -128,16 +126,16 @@ final class AgentScreenController extends BaseScreenController<DefaultScreenArgs
   }
 
   void updateAgent(AgentData updatedAgent, {required bool isFavorite, FavoriteModel? favoriteModel}) {
-    final int index = agentList.indexWhere((agent) => agent.uuid == updatedAgent.uuid);
+    final int index = _visibleAgents.indexWhere((agent) => agent.uuid == updatedAgent.uuid);
     if (index != -1) {
 //      agentList[index].copyWith(isFavorite: false, favoriteModel: null);
-      agentList[index] = updatedAgent;
+      _visibleAgents[index] = updatedAgent;
     }
     fetchNotifier.refresh();
     notifyListeners();
   }
 
-  int currentIndex(String uuid) => agentList.indexWhere((agent) => agent.uuid == uuid);
+  int currentIndex(String uuid) => _visibleAgents.indexWhere((agent) => agent.uuid == uuid);
 
   Future<void> showFavoriteDialog(AgentData agent, {bool isForFavorite = false}) async {
     String? option;
@@ -189,14 +187,6 @@ final class AgentScreenController extends BaseScreenController<DefaultScreenArgs
     if (favoriteModel != null) {
       final updatedAgent = agent.copyWith(isFavorite: true, favoriteModel: favoriteModel);
 
-      // if (isForFavorite) {
-      //   await addFavorite(updatedAgent);
-      //   updateAgent(updatedAgent, favoriteModel: favoriteModel);
-      // } else {
-      //   await addFavorite(updatedAgent);
-      //   updateAgent(updatedAgent, favoriteModel: favoriteModel);
-      // }
-
       await addFavorite(updatedAgent);
       updateAgent(updatedAgent, favoriteModel: favoriteModel, isFavorite: true);
       fetchNotifier.refresh();
@@ -210,9 +200,8 @@ final class AgentScreenController extends BaseScreenController<DefaultScreenArgs
   }
 
   Future<void> _saveFavorites() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
     final List<Map<String, dynamic>> favoritesJson = favoriteAgentList.map((agent) => agent.toMap()).toList();
-    await prefs.setString('favoriteAgents', jsonEncode(favoritesJson));
+    await _localStorageService().write(Keys.favoriteAgents, jsonEncode(favoritesJson));
   }
 
   void onTapListItem(AgentData agentItem) {
@@ -228,28 +217,41 @@ final class AgentScreenController extends BaseScreenController<DefaultScreenArgs
     );
   }
 
-  void _initializeAppFunctions() {}
-
   void _disposeAppFunctions() => AppFunctions.refreshAgentDetail = null;
 
   Future<List<AgentData>> fetch(int page) async {
     await loadFavorites(0);
+    int _page = page + 1;
+
+    if (agentList.isNotEmpty) {
+      _loadMoreAgents(_page);
+      return _visibleAgents;
+    }
 
     return await _apiService().agent.getAgentsList().then(
       (Result<List<AgentData>, ApiException> result) {
         return result.on(
           success: (List<AgentData> data) {
-            return data
-                .map(
-                  (agent) => agent.copyWith(
-                    isFavorite: favoriteAgentList.any((fav) => fav.uuid == agent.uuid),
-                  ),
-                )
+            agentList = data
+                .map((agent) => agent.copyWith(
+                      isFavorite: favoriteAgentList.any((fav) => fav.uuid == agent.uuid),
+                    ))
                 .toList();
+            _loadMoreAgents(_page == 0 ? 1 : _page);
+            return _visibleAgents;
           },
           failure: (ApiException e) => throw e,
         );
       },
     );
+  }
+
+  void _loadMoreAgents(int pageNumber) {
+    if (pageNumber >= 1) {
+      _visibleAgents.clear();
+      final List<AgentData> nextItems = agentList.skip((pageNumber - 1) * pageSize).take(pageSize).toList();
+      _visibleAgents = nextItems;
+      notifyListeners();
+    }
   }
 }

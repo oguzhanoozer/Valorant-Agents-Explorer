@@ -13,6 +13,7 @@ const double _kLoadMoreIndicatorSize = 20;
 const double _kEmptyBoxSize = 100;
 const double _kDividerThickness = 0.1;
 const double _kDividerHeight = 2;
+const double _kLoadMoreIndicatorStroke = 3;
 
 class LazyListView<T> extends StatefulWidget {
   const LazyListView({
@@ -43,6 +44,7 @@ class _LazyListViewState<T> extends State<LazyListView<T>> {
   late List<T> data;
   bool isFetching = false;
   bool hasMore = false;
+  final _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -50,6 +52,20 @@ class _LazyListViewState<T> extends State<LazyListView<T>> {
     data = widget.dataHolder ?? <T>[];
     widget.fetchNotifier?.addListener(() => Future<void>.microtask(() => fetch()));
     fetch();
+
+    _scrollController.addListener(() {
+      if (_scrollController.offset >= _scrollController.position.maxScrollExtent * 0.9) {
+        if (hasMore) {
+          loadMore();
+        }
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   Future<void> fetch([int page = 0]) async {
@@ -76,8 +92,7 @@ class _LazyListViewState<T> extends State<LazyListView<T>> {
       _setState(() {
         final newData = List<T>.from(data);
         newData.addAll(result);
-        //data = newData;
-        data.addAll(newData);
+        data = newData;
         hasMore = result.length == widget.pageSize;
         isFetching = false;
       });
@@ -107,17 +122,34 @@ class _LazyListViewState<T> extends State<LazyListView<T>> {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: () async {
-        fetch();
-      },
+      onRefresh: () => fetch(),
       child: switch (data.length) {
         > 0 => ListView.separated(
-            itemCount: data.length + 1,
+            controller: _scrollController,
+            itemCount: data.length + (hasMore ? 1 : 0),
             itemBuilder: (BuildContext context, int index) {
               if (index < data.length) {
                 return widget.itemBuilder(context, data[index]);
               }
-              return _buildLoadMoreIndicator();
+              return Builder(
+                builder: (_) {
+                  final Widget loadMoreIndicator = Container(
+                    width: _kLoadMoreIndicatorSize,
+                    height: _kLoadMoreIndicatorSize,
+                    alignment: Alignment.center,
+                    margin: const EdgeInsets.all(AppSize.padding),
+                    child: const AspectRatio(
+                      aspectRatio: 1,
+                      child: CircularProgressIndicator(
+                        color: AppColors.primary,
+                        strokeWidth: _kLoadMoreIndicatorStroke,
+                      ),
+                    ),
+                  );
+
+                  return loadMoreIndicator;
+                },
+              );
             },
             separatorBuilder: (_, __) => const Divider(height: _kDividerHeight, thickness: _kDividerThickness),
           ),
@@ -126,29 +158,6 @@ class _LazyListViewState<T> extends State<LazyListView<T>> {
             false => _buildEmptyIndicator(),
           }
       },
-    );
-  }
-
-  Widget _buildLoadMoreIndicator() {
-    return Visibility(
-      visible: hasMore,
-      child: Builder(
-        builder: (BuildContext context) {
-          loadMore();
-          return Container(
-            width: _kLoadMoreIndicatorSize,
-            height: _kLoadMoreIndicatorSize,
-            alignment: Alignment.center,
-            margin: const EdgeInsets.all(AppSize.padding),
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: CreateAdaptiveWidgets().adaptiveActivityIndicator(
-                color: AppColors.primary,
-              ),
-            ),
-          );
-        },
-      ),
     );
   }
 
