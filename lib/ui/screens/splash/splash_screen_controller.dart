@@ -1,5 +1,5 @@
-import '../../../core/exceptions/base_exception.dart';
-import '../../../core/init/app_locator.dart';
+import 'package:agents_explorer/core/configs/constants/app_strings.dart';
+
 import '../../../core/routing/app_navigation.dart';
 import '../../../core/utils/dialog_utils.dart';
 import '../base_screen_args.dart';
@@ -21,13 +21,13 @@ final class SplashScreenController extends BaseScreenController<DefaultScreenArg
       await Future.wait<void>(
         <Future<void>>[
           Future<void>.delayed(_minWaitDuration),
-          AppLocator.initServices(),
+
+          /// TODO: Checking process will be handled here.
         ],
       );
       AppNavigation.goToMainScreen(context);
     } catch (e) {
-      print(BaseException.from(e));
-      await DialogUtils.showErrorDialog(context, message: BaseException.from(e).message);
+      DialogUtils.showErrorDialog(context, message: AppStrings.errorOccured()).then((_) => pop());
       AppNavigation.goToSplashScreen(context);
     }
   }

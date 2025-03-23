@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 
 import '../../core/configs/constants/app_size.dart';
 import '../../core/configs/theme/app_colors.dart';
@@ -51,8 +49,10 @@ final class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double textFieldHeight = type == TextFieldType.rectangleMulti ? AppSize.textFieldHeight * 2 : AppSize.textFieldHeight;
+
     return SizedBox(
-      height: AppSize.textFieldHeight,
+      height: textFieldHeight,
       child: TextField(
         maxLines: type._lines,
         minLines: type._lines,
@@ -68,7 +68,7 @@ final class CustomTextField extends StatelessWidget {
         textInputAction: textInputAction,
         cursorWidth: 1,
         cursorColor: AppColors.onSurfaceHigh,
-        style: AppTextStyles.body3_high(),
+        style: AppTextStyles.body3_high(color: Theme.of(context).colorScheme.onPrimary),
         onChanged: onChanged,
         onSubmitted: onSubmitted,
         decoration: InputDecoration(
@@ -83,6 +83,12 @@ final class CustomTextField extends StatelessWidget {
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: AppColors.cancelButtonEnd),
+            borderRadius: BorderRadius.all(
+              Radius.circular(type._radius),
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: AppColors.primary),
             borderRadius: BorderRadius.all(
               Radius.circular(type._radius),
             ),

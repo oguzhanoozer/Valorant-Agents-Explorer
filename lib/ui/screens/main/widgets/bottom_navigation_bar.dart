@@ -78,26 +78,16 @@ final class _CustomBottomNavigationBarState extends State<CustomBottomNavigation
 
     return Container(
       height: AppSize.navigationBarHeight,
-      decoration: const BoxDecoration(
-        color: AppColors.navigationBarBackground,
-        border: Border(
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.onSurface,
+        border: const Border(
           top: BorderSide(
             width: AppSize.dividerThickness,
             color: AppColors.onSurfaceLow,
           ),
         ),
       ),
-      child: SingleChildScrollView(
-        controller: scrollController,
-        scrollDirection: Axis.horizontal,
-        physics: const PageScrollPhysics(),
-        child: Stack(
-          alignment: Alignment.centerLeft,
-          children: <Widget>[
-            navigationBar,
-          ],
-        ),
-      ),
+      child: navigationBar,
     );
   }
 }

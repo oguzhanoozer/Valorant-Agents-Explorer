@@ -4,12 +4,14 @@ import 'package:flutter_svg/svg.dart';
 enum AppImageExt { svg, webp }
 
 enum AppImages {
+  tr(),
+  en(),
   slogan(),
   dialog_sos(),
   dialog_success(),
   dialog_info(),
   dialog_warning(),
-  splash_background(ext: AppImageExt.webp);
+  splash_background(ext: AppImageExt.svg);
 
   final AppImageExt ext;
   const AppImages({this.ext = AppImageExt.svg});

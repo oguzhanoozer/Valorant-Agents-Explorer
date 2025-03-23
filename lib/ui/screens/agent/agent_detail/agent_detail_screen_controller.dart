@@ -1,8 +1,8 @@
 import 'dart:async';
 
+import 'package:agents_explorer/core/configs/constants/app_strings.dart';
 import 'package:agents_explorer/core/models/agents/api/agent_model.dart';
 import 'package:agents_explorer/core/utils/app_functions.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/exceptions/api_exception.dart';
 import '../../../../core/models/result.dart';
@@ -17,7 +17,7 @@ final class AgentDetailScreenController extends BaseScreenController<AgentDetail
   final String _movieId;
   final bool _isFavorite;
   AgentData? agentDetail;
-  final void Function()? onUpdateList;
+  final void Function(AgentData)? onUpdateList;
 
   AgentDetailScreenController(
     super.args,
@@ -32,18 +32,13 @@ final class AgentDetailScreenController extends BaseScreenController<AgentDetail
     _getAgentDetail(_movieId);
   }
 
-  bool _loading = false;
-
-  bool get isLoading => _loading;
-
-  void setLoading(bool status) {
-    _loading = status;
-    notifyListeners();
+  void fetchData() {
+    _getAgentDetail(_movieId);
   }
 
   Future<void> saveFavorites() async {
-    //agentDetail = agentDetail?.copyWith(isFavorite: !(agentDetail?.isFavorite ?? false));
-    onUpdateList?.call();
+    if (agentDetail == null) return;
+    onUpdateList?.call(agentDetail!);
     AppFunctions.refreshAgentDetail = (bool isFavorite, {FavoriteModel? favoriteModel}) {
       agentDetail = agentDetail?.copyWith(isFavorite: isFavorite, favoriteModel: favoriteModel);
       notifyListeners();
@@ -51,8 +46,7 @@ final class AgentDetailScreenController extends BaseScreenController<AgentDetail
   }
 
   Future<void> _getAgentDetail(String id) async {
-    setLoading(true);
-    notifyListeners();
+    setBusy(true);
 
     await _apiService().agent.getAgentDetail(id).then(
       (Result<AgentData, ApiException> result) {
@@ -60,14 +54,16 @@ final class AgentDetailScreenController extends BaseScreenController<AgentDetail
           success: (AgentData data) {
             agentDetail = data;
             agentDetail = agentDetail?.copyWith(isFavorite: _isFavorite);
+            setBusy(false);
           },
           failure: (ApiException e) {
-            DialogUtils.showErrorDialog(context, message: e.message).then((_) => pop());
+            setBusy(false);
+
+            DialogUtils.showErrorDialog(context, message: AppStrings.errorOccured()).then((_) => pop());
           },
         );
       },
     );
-    setLoading(false);
     notifyListeners();
   }
 }

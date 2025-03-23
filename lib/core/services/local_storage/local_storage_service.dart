@@ -2,7 +2,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../base_service.dart';
 
-enum Keys { favoriteAgents }
+enum Keys { favoriteAgents, cacheAgents }
 
 final class LocalStorageService extends BaseService<LocalStorageService> {
   final FlutterSecureStorage _storage;

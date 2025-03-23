@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../core/configs/constants/app_icons.dart';
@@ -19,7 +18,7 @@ final class CustomAppBar extends StatelessWidget implements PreferredSizeWidget 
     this.bottomWidgetHeight = 0,
     this.elevation = AppSize.appBarElevation,
     this.showLeading = true,
-    this.backgroundColor = AppColors.background,
+    this.backgroundColor = Colors.transparent,
   });
 
   const CustomAppBar.empty({Key? key})
@@ -27,7 +26,6 @@ final class CustomAppBar extends StatelessWidget implements PreferredSizeWidget 
           key: key,
           title: '',
           elevation: 0,
-          backgroundColor: Colors.transparent,
         );
 
   final Widget? leading;
@@ -38,7 +36,7 @@ final class CustomAppBar extends StatelessWidget implements PreferredSizeWidget 
   final double bottomWidgetHeight;
   final double elevation;
   final bool showLeading;
-  final Color backgroundColor;
+  final Color? backgroundColor;
 
   @override
   Size get preferredSize => Size.fromHeight(AppSize.appBarHeight + bottomWidgetHeight);
@@ -72,7 +70,7 @@ final class CustomAppBar extends StatelessWidget implements PreferredSizeWidget 
       child: AppBar(
         elevation: 0,
         toolbarHeight: AppSize.appBarHeight,
-        backgroundColor: backgroundColor,
+        backgroundColor: Theme.of(context).colorScheme.onSurface,
         automaticallyImplyLeading: false,
         leading: leading,
         centerTitle: false,
@@ -81,11 +79,13 @@ final class CustomAppBar extends StatelessWidget implements PreferredSizeWidget 
             switch (title) {
               final String title => Text(
                   title,
-                  style: AppTextStyles.title(),
+                  style: AppTextStyles.title().copyWith(color: AppColors.primary, fontSize: 20),
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
                 ),
-              _ => const AppName()
+              _ => const AppName(
+                  color: AppColors.primary,
+                )
             },
         actions: actions,
         bottom: PreferredSize(

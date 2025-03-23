@@ -48,6 +48,12 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
+    SettingsScreenRoute.name: (routeData) {
+      return AutoRoutePage<void>(
+        routeData: routeData,
+        child: const SettingsScreenView(),
+      );
+    },
     SplashScreenRoute.name: (routeData) {
       final args = routeData.argsAs<SplashScreenRouteArgs>(
           orElse: () => const SplashScreenRouteArgs());
@@ -164,6 +170,20 @@ class MainScreenRouteArgs {
   String toString() {
     return 'MainScreenRouteArgs{key: $key, args: $args}';
   }
+}
+
+/// generated route for
+/// [SettingsScreenView]
+class SettingsScreenRoute extends PageRouteInfo<void> {
+  const SettingsScreenRoute({List<PageRouteInfo>? children})
+      : super(
+          SettingsScreenRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'SettingsScreenRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for

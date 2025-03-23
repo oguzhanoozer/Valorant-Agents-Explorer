@@ -7,9 +7,10 @@ abstract final class AppSize {
   static const double paddingHigh = 24;
 
   static const double icon = 24;
+  static const double iconHigh = 30;
 
-  static const double navigationBarHeight = 56;
-  static const double navigationBarIconSize = 24;
+  static const double navigationBarHeight = 96;
+  static const double navigationBarIconSize = 30;
 
   static const double floatingActionButtonSize = 56;
 

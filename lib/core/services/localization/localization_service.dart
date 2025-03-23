@@ -49,14 +49,21 @@ final class LocalizationService extends BaseService<LocalizationService> {
   @override
   Future<LocalizationService> init() async {
     super.init();
-    final String languageCode = Intl.shortLocale(Intl.getCurrentLocale());
+    // final String languageCode = Intl.shortLocale(Intl.getCurrentLocale());
+    // final String source = await rootBundle.loadString('assets/localizations/$languageCode.json');
+    // _strings.addAll(jsonDecode(source));
+    return this;
+  }
+
+  Future<void> addString(String languageCode) async {
+    _strings.clear();
     final String source = await rootBundle.loadString('assets/localizations/$languageCode.json');
     _strings.addAll(jsonDecode(source));
-    return this;
   }
 
   String get(String key) {
     if (_strings.containsKey(key)) {
+      var x = _strings[key];
       return _strings[key];
     }
     AppLogger.warning('$key not found on string values.');

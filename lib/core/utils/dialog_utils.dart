@@ -2,165 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../ui/dialogs/app_dialog.dart';
-import '../../ui/widgets/text_field.dart';
 import '../configs/constants/app_images.dart';
 import '../configs/constants/app_strings.dart';
 import '../configs/theme/app_colors.dart';
 
 abstract final class DialogUtils {
-  static Future<void> showFilterClearDialog(
+  static Future<void> showCreateFavoriteSuccessDialog(
     BuildContext? context, {
-    void Function()? onApply,
+    required String message,
   }) {
-    return AppDialog(
-      icon: AppImages.dialog_info(),
-      message: AppStrings.login(),
-      primaryButtonText: AppStrings.login(),
-      cancelButtonText: AppStrings.login(),
-      onTapPrimaryButton: onApply,
-    ).show(context);
-  }
-
-  static Future<void> showFilterNotFoundDialog(BuildContext? context) {
-    return AppDialog(
-      icon: AppImages.dialog_warning(),
-      message: AppStrings.login(),
-      primaryButtonText: AppStrings.login(),
-    ).show(context);
-  }
-
-  static Future<void> showCreateMovieCancelDialog(
-    BuildContext? context, {
-    void Function()? onApply,
-  }) {
-    return AppDialog(
-      icon: AppImages.dialog_info(),
-      message: AppStrings.login(),
-      primaryButtonText: AppStrings.login(),
-      cancelButtonText: AppStrings.login(),
-      onTapPrimaryButton: onApply,
-    ).show(context);
-  }
-
-  static Future<void> showCreateMovieApplyDialog(
-    BuildContext? context, {
-    required String classificationType,
-    void Function()? onApply,
-  }) {
-    return AppDialog(
-      icon: AppImages.dialog_info(),
-      message: AppStrings.login(
-        <String, dynamic>{
-          '%classificationType': classificationType,
-        },
-      ),
-      primaryButtonText: AppStrings.login(),
-      cancelButtonText: AppStrings.login(),
-      onTapPrimaryButton: onApply,
-    ).show(context);
-  }
-
-  static Future<void> showCreateMovieSuccessDialog(BuildContext? context) {
     return AppDialog(
       icon: AppImages.dialog_success(),
-      message: AppStrings.login(),
-      primaryButtonText: AppStrings.login(),
-    ).show(context);
-  }
-
-  static Future<void> showUpdateMovieCancelDialog(
-    BuildContext? context, {
-    void Function()? onApply,
-  }) {
-    return AppDialog(
-      icon: AppImages.dialog_info(),
-      message: AppStrings.login(),
-      primaryButtonText: AppStrings.login(),
-      cancelButtonText: AppStrings.login(),
-      onTapPrimaryButton: onApply,
-    ).show(context);
-  }
-
-  static Future<void> showUpdateMovieApplyDialog(
-    BuildContext? context, {
-    required String classificationType,
-    void Function()? onApply,
-  }) {
-    return AppDialog(
-      icon: AppImages.dialog_info(),
-      message: AppStrings.login(
-        <String, dynamic>{
-          '%classificationType': classificationType,
-        },
-      ),
-      primaryButtonText: AppStrings.login(),
-      cancelButtonText: AppStrings.login(),
-      onTapPrimaryButton: onApply,
-    ).show(context);
-  }
-
-  static Future<void> showUpdateMovieSuccessDialog(BuildContext? context) {
-    return AppDialog(
-      icon: AppImages.dialog_success(),
-      message: AppStrings.login(),
-      primaryButtonText: AppStrings.login(),
-    ).show(context);
-  }
-
-  static Future<void> showPermissionRequestDialog(BuildContext? context) {
-    return AppDialog(
-      icon: AppImages.dialog_info(),
-      title: AppStrings.login(),
-      message: AppStrings.login(),
-      primaryButtonText: AppStrings.login(),
-    ).show(context);
-  }
-
-  static Future<void> showPermissionFailDialog(BuildContext? context) {
-    return AppDialog(
-      icon: AppImages.dialog_warning(),
-      title: AppStrings.login(),
-      message: AppStrings.login(),
-      primaryButtonText: AppStrings.login(),
-    ).show(context);
-  }
-
-  static Future<void> showLocationServiceFailDialog(BuildContext? context) {
-    return AppDialog(
-      icon: AppImages.dialog_warning(),
-      title: AppStrings.login(),
-      message: AppStrings.login(),
-      primaryButtonText: AppStrings.login(),
-    ).show(context);
-  }
-
-  static Future<void> showLogoutDialog(
-    BuildContext? context, {
-    void Function()? onApply,
-  }) {
-    return AppDialog(
-      icon: AppImages.dialog_warning(),
-      message: AppStrings.login(),
-      primaryButtonText: AppStrings.login(),
-      cancelButtonText: AppStrings.login(),
-      onTapPrimaryButton: onApply,
-    ).show(context);
-  }
-
-  static Future<void> showSosDialog(
-    BuildContext? context, {
-    void Function()? onApply,
-  }) {
-    return AppDialog(
-      icon: AppImages.dialog_sos(),
-      message: AppStrings.login(),
-      primaryButtonText: AppStrings.login(),
-      cancelButtonText: AppStrings.login(),
-      primaryButtonColors: const <Color>[
-        AppColors.buttonStart,
-        AppColors.buttonEnd,
-      ],
-      onTapPrimaryButton: onApply,
+      message: message,
+      primaryButtonText: AppStrings.ok(),
     ).show(context);
   }
 
@@ -169,8 +23,8 @@ abstract final class DialogUtils {
     required void Function() onApply,
   }) {
     return AppDialog(
-      icon: AppImages.dialog_sos(),
-      message: AppStrings.login(),
+      icon: AppImages.dialog_warning(),
+      message: AppStrings.deleteAgentMessage(),
       primaryButtonText: AppStrings.delete(),
       cancelButtonText: AppStrings.cancel(),
       primaryButtonColors: const <Color>[
@@ -181,15 +35,6 @@ abstract final class DialogUtils {
     ).show(context);
   }
 
-  static Future<void> showSosCreatingDialog(
-    BuildContext? context,
-  ) {
-    return AppDialog(
-      icon: AppImages.dialog_info(),
-      message: AppStrings.login(),
-    ).show(context, false);
-  }
-
   static Future<void> showUpdateOrDeleteDialog(
     BuildContext? context, {
     required AppStrings primaryButtonText,
@@ -198,9 +43,8 @@ abstract final class DialogUtils {
     required void Function() onSecondaryApply,
   }) {
     return AppDialog(
-      icon: AppImages.dialog_warning(),
-      title: AppStrings.login(),
-      message: AppStrings.login(),
+      icon: AppImages.dialog_info(),
+      message: AppStrings.selectProcess(),
       primaryButtonText: primaryButtonText(),
       secondaryButtonText: secondaryButtonText(),
       onTapPrimaryButton: onPrimaryApply,
@@ -239,7 +83,7 @@ abstract final class DialogUtils {
   static Future<void> showErrorDialog(
     BuildContext? context, {
     required String message,
-    AppStrings? primaryButtonText = AppStrings.login,
+    AppStrings? primaryButtonText = AppStrings.ok,
   }) {
     return AppDialog(
       icon: AppImages.dialog_warning(),

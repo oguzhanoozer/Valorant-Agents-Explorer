@@ -19,8 +19,7 @@ final class CustomLabelButton extends StatelessWidget {
     this.borderColor,
     List<Color>? backgroundColors,
     Color foregroundColor = AppColors.onPrimary,
-  })  : backgroundColors = backgroundColors ??
-            const <Color>[AppColors.primaryButtonStart, AppColors.primaryButtonEnd],
+  })  : backgroundColors = backgroundColors ?? const <Color>[AppColors.primaryButtonStart, AppColors.primaryButtonEnd],
         foregroundColor = enabled ? foregroundColor : AppColors.disabledButtonForeground;
 
   factory CustomLabelButton.text({
@@ -70,12 +69,8 @@ final class CustomLabelButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final Decoration decoration = ShapeDecoration(
       shape: const StadiumBorder(),
-      gradient: backgroundColors.length < _kMinColorLengthForGradient
-          ? null
-          : LinearGradient(colors: backgroundColors),
-      color: backgroundColors.length < _kMinColorLengthForGradient
-          ? backgroundColors.firstOrNull
-          : null,
+      gradient: backgroundColors.length < _kMinColorLengthForGradient ? null : LinearGradient(colors: backgroundColors),
+      color: backgroundColors.length < _kMinColorLengthForGradient ? backgroundColors.firstOrNull : null,
     );
 
     return CustomGestureDetector(

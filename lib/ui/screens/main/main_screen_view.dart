@@ -12,7 +12,9 @@ final class MainScreenView extends BaseScreenView<AgentScreenController, Default
   const MainScreenView({
     super.key,
     super.args = const DefaultScreenArgs(),
-  });
+  }) : super(
+          safeArea: const ScaffoldSafeArea(bottom: false),
+        );
 
   @override
   State<MainScreenView> createState() => _MainScreenViewState();

@@ -2,12 +2,44 @@ import '../../init/app_locator.dart';
 import '../../services/localization/localization_service.dart';
 
 enum AppStrings {
-  login(),
   ok(),
   delete(),
   cancel(),
   save(),
-  edit();
+  edit(),
+  appTitle(),
+  favoriteAgentsTitle(),
+  addFavoriteAgentTitle(),
+  editFavoriteAgentTitle(),
+  deleteAgentMessage(),
+  selectProcess(),
+  errorOccured(),
+  errorOccuredWhenFavAgentsLoading(),
+  deleteAgentSuccessfulTitle(),
+  editAgentSuccessfulTitle(),
+  enterTitleAndDescription(),
+  favoriteAgentNotSaved(),
+  titleNotSameBeforeTitle(),
+  list(),
+  favorite(),
+  emptyList(),
+  emptyFavoriteList(),
+  agents(),
+  favAgents(),
+  abilities(),
+  description(),
+  developer(),
+  releaseDate(),
+  displayName(),
+  role(),
+  enterDescription(),
+  enterTitle(),
+  turkish(),
+  english(),
+  darkTheme(),
+  lightTheme(),
+  settings(),
+  loadingData();
 
   String call([Map<String, dynamic> replaceMap = const <String, dynamic>{}]) {
     String result = get(name);

@@ -1,3 +1,4 @@
+import 'package:agents_explorer/core/configs/constants/app_strings.dart';
 import 'package:agents_explorer/ui/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -80,10 +81,10 @@ final class AppDialog extends BaseDialog {
     final Widget descriptionTextField = CustomTextField(
       controller: descriptionTextFieldController,
       initialValue: descriptionTextFieldController?.text,
-      type: textFieldType,
+      type: TextFieldType.rectangleMulti,
       keyboardType: keyboardType,
       autoFocus: false,
-      hintText: 'Enter description',
+      hintText: AppStrings.enterDescription(),
     );
 
     final Widget titleTextField = CustomTextField(
@@ -92,7 +93,7 @@ final class AppDialog extends BaseDialog {
       type: textFieldType,
       keyboardType: keyboardType,
       autoFocus: false,
-      hintText: 'Enter title',
+      hintText: AppStrings.enterTitle(),
     );
 
     final Widget message = Padding(
@@ -106,6 +107,7 @@ final class AppDialog extends BaseDialog {
               textAlign: TextAlign.center,
               style: AppTextStyles.body3_high(
                 fontWeight: FontWeight.normal,
+                color: Theme.of(context).colorScheme.onPrimary,
               ),
             ),
             if (messageShowWidget != null && messageShowWidget!)
@@ -115,6 +117,7 @@ final class AppDialog extends BaseDialog {
                 ),
                 child: Column(
                   children: <Widget>[
+                    const SizedBox(height: 10),
                     switch (textFieldType) {
                       TextFieldType.rectangleMulti => AspectRatio(
                           aspectRatio: 4,
@@ -129,7 +132,8 @@ final class AppDialog extends BaseDialog {
                           child: descriptionTextField,
                         ),
                       _ => descriptionTextField,
-                    }
+                    },
+                    const SizedBox(height: 10),
                   ],
                 ),
               ),
@@ -151,7 +155,7 @@ final class AppDialog extends BaseDialog {
               backgroundColors: primaryButtonColors,
               onTap: () {
                 if (titleTextFieldController != null) {
-                  if (initTitle == titleTextFieldController?.text) {
+                  if (initTitle.toLowerCase() == titleTextFieldController?.text.toLowerCase()) {
                     viewModel.toggleBool();
                   } else {
                     pop(context, () => onTapPrimaryButton?.call());
@@ -169,7 +173,7 @@ final class AppDialog extends BaseDialog {
             ),
           if (cancelButtonText != null)
             CustomLabelButton(
-              backgroundColors: [AppColors.cancelButtonStart, AppColors.cancelButtonStart],
+              backgroundColors: const [AppColors.cancelButtonStart, AppColors.cancelButtonStart],
               label: cancelButtonText!,
               onTap: () => pop(context),
             ),
@@ -198,7 +202,7 @@ final class AppDialog extends BaseDialog {
                 ),
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
-                  color: AppColors.background,
+                  color: Theme.of(context).colorScheme.onSurface,
                   borderRadius: BorderRadius.circular(super.radius),
                 ),
                 child: Column(
@@ -212,13 +216,18 @@ final class AppDialog extends BaseDialog {
                       const SizedBox(
                         height: AppSize.paddingLow,
                       ),
-                    if (viewModel.isErrorEnabled)
+                    if (viewModel.isErrorEnabled) ...[
                       Text(
-                        'showError',
+                        AppStrings.titleNotSameBeforeTitle(),
+                        textAlign: TextAlign.center,
                         style: AppTextStyles.body3_high(
-                          color: AppColors.badge,
+                          color: AppColors.buttonStart,
                         ),
                       ),
+                      const SizedBox(
+                        height: AppSize.paddingLow,
+                      ),
+                    ],
                     buttons(viewModel),
                   ],
                 ),

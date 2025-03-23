@@ -36,47 +36,11 @@ abstract final class AppNavigation {
     context?.router.replaceAll(<PageRouteInfo>[MainScreenRoute()]);
   }
 
-  // static void goToMovieFilter(BuildContext? context, {required MovieFilterScreenArgs args}) {
-  //   context?.pushRoute(MovieFilterScreenRoute(args: args));
-  // }
-
-  // static void goToMovieList(BuildContext? context) {
-  //   context?.navigateTo(
-  //     MovieScreenWrapperRoute(
-  //       children: <PageRouteInfo>[
-  //         MovieScreenRoute(
-  //           children: const <PageRouteInfo>[
-  //             MovieScreenListRoute(),
-  //           ],
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
-
-  // static void goToMovieMap(BuildContext? context) {
-  //   context?.navigateTo(
-  //     MovieScreenWrapperRoute(
-  //       children: <PageRouteInfo>[
-  //         MovieScreenRoute(
-  //           children: const <PageRouteInfo>[
-  //             MovieScreenMapRoute(),
-  //           ],
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
-
-  // static void goToImagePicker(BuildContext? context, {required ImagePickerScreenArgs args}) {
-  //   context?.pushRoute(ImagePickerScreenRoute(args: args));
-  // }
-
-  // static void goToLocationSelect(BuildContext? context, {required LocationSelectScreenArgs args}) {
-  //   context?.pushRoute(LocationSelectScreenRoute(args: args));
-  // }
-
   static void goToAgentDetail(BuildContext? context, {required AgentDetailScreenArgs args}) {
     context?.pushRoute(AgentDetailScreenRoute(args: args));
+  }
+
+  static void goToSettings(BuildContext? context) {
+    context?.pushRoute(const SettingsScreenRoute());
   }
 }

@@ -1,3 +1,5 @@
+import 'package:agents_explorer/core/services/theme/theme_service.dart';
+import 'package:agents_explorer/core/theme/theme_controller.dart';
 import 'package:agents_explorer/ui/screens/agent/agent/agent_screen_controller.dart';
 import 'package:agents_explorer/ui/screens/agent/agent_detail/agent_detail_screen_args.dart';
 import 'package:agents_explorer/ui/screens/agent/agent_detail/agent_detail_screen_controller.dart';
@@ -33,11 +35,11 @@ abstract final class ControllerLocator {
 
   static void _register() {
     void registerController<C extends BaseScreenController<A>, A extends BaseScreenArgs>(
-      C Function(A args) factroryFunc, {
+      C Function(A args) factoryFunc, {
       String? instanceName,
     }) {
       _locator.registerFactoryParam<C, A, void>(
-        (A args, _) => factroryFunc(args),
+        (A args, _) => factoryFunc(args),
         instanceName: instanceName,
       );
     }
@@ -108,15 +110,19 @@ abstract final class ServiceLocator {
       );
     }
 
+    registerService<ThemeService>(
+      () => ThemeService(),
+    );
+
+    registerService<ApiService>(
+      () => ApiService(),
+    );
     registerService<LocalizationService>(
       () => LocalizationService(),
     );
 
     registerService<LocalStorageService>(
       () => LocalStorageService(),
-    );
-    registerService<ApiService>(
-      () => ApiService(),
     );
   }
 
