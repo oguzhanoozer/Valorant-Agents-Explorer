@@ -1,14 +1,11 @@
 import 'package:agents_explorer/core/configs/theme/app_theme.dart';
 import 'package:agents_explorer/core/init/app_locator.dart';
 import 'package:agents_explorer/core/services/base_service.dart';
-import 'package:agents_explorer/core/services/localization/localization_service.dart';
+import 'package:agents_explorer/core/services/local_storage/local_storage_service.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked/stacked.dart';
 
 final class ThemeService extends BaseService<ThemeService> with ReactiveServiceMixin {
-  static const String _themeKey = "isDarkMode";
-  static const String _localKey = "localization";
   final ReactiveValue<bool> _isDarkMode = ReactiveValue<bool>(false);
   final ReactiveValue<String> _localization = ReactiveValue<String>("en");
 
@@ -26,13 +23,12 @@ final class ThemeService extends BaseService<ThemeService> with ReactiveServiceM
 
   Future<void> toggleTheme() async {
     _isDarkMode.value = !_isDarkMode.value;
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setBool(_themeKey, _isDarkMode.value);
+    await ServiceLocator.get<LocalStorageService>().write(Keys.isDarkMode, _isDarkMode.value.toString());
   }
 
   Future<void> _loadTheme() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    _isDarkMode.value = prefs.getBool(_themeKey) ?? false;
+    String? theme = await ServiceLocator.get<LocalStorageService>().read(Keys.isDarkMode);
+    _isDarkMode.value = theme != null && theme == 'true';
   }
 
   // Future<void> toggleLocalization(String localKey) async {
