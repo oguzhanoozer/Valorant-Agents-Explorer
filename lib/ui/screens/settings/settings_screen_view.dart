@@ -63,31 +63,31 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: AppSize.paddingHigh),
-                  subItemView(
-                    child: Row(
-                      children: [
-                        Expanded(
-                            child: Text(
-                          model.localization == "en" ? AppStrings.english() : AppStrings.turkish(),
-                          style: AppTextStyles.body3_high(color: AppColors.primary),
-                        )),
-                        localizationView(
-                          title: "Tr",
-                          icon: AppImages.tr(),
-                          isSelected: model.localization == "tr",
-                          onPressed: () => model.toggleLocalization("tr", context),
-                        ),
-                        const SizedBox(width: AppSize.padding),
-                        localizationView(
-                          title: "Eng",
-                          icon: AppImages.en(),
-                          isSelected: model.localization == "en",
-                          onPressed: () => model.toggleLocalization("en", context),
-                        ),
-                      ],
-                    ),
-                  ),
+                  // const SizedBox(height: AppSize.paddingHigh),
+                  // subItemView(
+                  //   child: Row(
+                  //     children: [
+                  //       Expanded(
+                  //           child: Text(
+                  //         model.localization == "en" ? AppStrings.english() : AppStrings.turkish(),
+                  //         style: AppTextStyles.body3_high(color: AppColors.primary),
+                  //       )),
+                  //       localizationView(
+                  //         title: "Tr",
+                  //         icon: AppImages.tr(),
+                  //         isSelected: model.localization == "tr",
+                  //         onPressed: () => model.toggleLocalization("tr", context),
+                  //       ),
+                  //       const SizedBox(width: AppSize.padding),
+                  //       localizationView(
+                  //         title: "Eng",
+                  //         icon: AppImages.en(),
+                  //         isSelected: model.localization == "en",
+                  //         onPressed: () => model.toggleLocalization("en", context),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                 ],
               ),
             ),

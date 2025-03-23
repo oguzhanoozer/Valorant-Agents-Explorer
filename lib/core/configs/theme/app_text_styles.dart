@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'app_colors.dart';
 
-const String fontFamily = 'Roboto';
+const String fontFamily = 'EurostileT';
 
 enum AppTextStyles {
   body1_medium(fontSize: 12, color: AppColors.onSurfaceMedium),

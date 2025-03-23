@@ -16,7 +16,7 @@ final class ThemeService extends BaseService<ThemeService> with ReactiveServiceM
     listenToReactiveValues([_isDarkMode]);
     listenToReactiveValues([_localization]);
     _loadTheme();
-    _loadLocalization();
+    //_loadLocalization();
   }
 
   bool get isDarkMode => _isDarkMode.value;
@@ -35,22 +35,22 @@ final class ThemeService extends BaseService<ThemeService> with ReactiveServiceM
     _isDarkMode.value = prefs.getBool(_themeKey) ?? false;
   }
 
-  Future<void> toggleLocalization(String localKey) async {
-    _localization.value = localKey;
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_localKey, localKey);
-    await callSetStrings();
-  }
+  // Future<void> toggleLocalization(String localKey) async {
+  //   _localization.value = localKey;
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   await prefs.setString(_localKey, localKey);
+  //   await callSetStrings();
+  // }
 
-  Future<void> _loadLocalization() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    _localization.value = prefs.getString(_localKey) ?? 'en';
-    await callSetStrings();
-  }
+  // Future<void> _loadLocalization() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   _localization.value = prefs.getString(_localKey) ?? 'en';
+  //   await callSetStrings();
+  // }
 
-  Future<void> callSetStrings() async {
-    await ServiceLocator.get<LocalizationService>().addString(localization);
-  }
+  // Future<void> callSetStrings() async {
+  //   await ServiceLocator.get<LocalizationService>().addString(localization);
+  // }
 
   ThemeData get currentThemeData => isDarkMode ? AppTheme.darkTheme : AppTheme.lightTheme;
 }

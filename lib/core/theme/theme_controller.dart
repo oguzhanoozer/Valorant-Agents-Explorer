@@ -8,7 +8,7 @@ final class ThemeController extends ReactiveViewModel {
   final ThemeService _themeService = ServiceLocator.get<ThemeService>();
 
   bool get isDarkMode => _themeService.isDarkMode;
-  String get localization => _themeService.localization;
+  //String get localization => _themeService.localization;
   ThemeMode get themeMode => _themeService.currentTheme;
   ThemeData get lightTheme => AppTheme.lightTheme;
   ThemeData get darkTheme => AppTheme.darkTheme;
@@ -19,10 +19,10 @@ final class ThemeController extends ReactiveViewModel {
     rebuildUi();
   }
 
-  Future<void> toggleLocalization(String localKey, BuildContext? context) async {
-    await _themeService.toggleLocalization(localKey);
-    rebuildUi();
-  }
+  // Future<void> toggleLocalization(String localKey, BuildContext? context) async {
+  //   await _themeService.toggleLocalization(localKey);
+  //   rebuildUi();
+  // }
 
   List<ReactiveServiceMixin> get reactiveServices => [_themeService];
 }

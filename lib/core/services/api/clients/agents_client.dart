@@ -12,12 +12,16 @@ import '../constants/api_paths.dart';
 final class AgentsClient {
   final Dio _api;
 
-  AgentsClient(this._api);
+  String? languageCode;
+
+  AgentsClient(this._api) {
+    final data = localeListResolutionCallback(null, supportedLocales);
+    languageCode = data.languageCode;
+  }
 
   Future<Result<List<AgentData>, ApiException>> getAgentsList() async {
     try {
-      final languageCode = ServiceLocator.get<ThemeService>().localization;
-      final requestLangCode = LanguageCode.fromString(languageCode).getLocale();
+      final requestLangCode = LanguageCode.fromString(languageCode ?? 'en').getLocale();
       return await _api.get('${ApiPaths.agents}?language=$requestLangCode').then(
         (dio.Response<dynamic> response) {
           return Success(AgentModel.fromJson(response.data).data ?? []);
@@ -30,8 +34,7 @@ final class AgentsClient {
 
   Future<Result<AgentData, ApiException>> getAgentDetail(String uuid) async {
     try {
-      final languageCode = ServiceLocator.get<ThemeService>().localization;
-      final requestLangCode = LanguageCode.fromString(languageCode).getLocale();
+      final requestLangCode = LanguageCode.fromString(languageCode ?? '').getLocale();
 
       return await _api.get('${ApiPaths.agentsDetail.replaceAll(':uuid', uuid)}?language=$requestLangCode').then(
         (dio.Response<dynamic> response) {

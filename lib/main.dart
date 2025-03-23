@@ -1,8 +1,6 @@
-import 'package:agents_explorer/core/theme/theme_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:stacked/stacked.dart';
 
 import 'core/configs/theme/app_colors.dart';
 import 'core/configs/theme/app_theme.dart';
@@ -33,26 +31,18 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => AppNavigation.unFocus(),
-      child: ViewModelBuilder<ThemeController>.reactive(
-          viewModelBuilder: () => ThemeController(),
-          builder: (context, model, child) {
-            return MaterialApp.router(
-              theme: model.lightTheme,
-              darkTheme: model.darkTheme,
-              themeMode: model.themeMode,
-              routerConfig: AppNavigation.routerConfig,
-              supportedLocales: supportedLocales,
-              locale: Locale(model.localization),
-              localeResolutionCallback: (locale, supportedLocales) {
-                return Locale(model.localization);
-              },
-              localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-              ],
-            );
-          }),
+      child: MaterialApp.router(
+        themeMode: AppTheme.themeMode,
+        theme: AppTheme.lightTheme,
+        routerConfig: AppNavigation.routerConfig,
+        supportedLocales: supportedLocales,
+        localeListResolutionCallback: localeListResolutionCallback,
+        localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+      ),
     );
   }
 }
