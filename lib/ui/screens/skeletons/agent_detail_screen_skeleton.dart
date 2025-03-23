@@ -43,15 +43,15 @@ final class AgentDetailScreenSkeleton extends StatelessWidget {
     return Stack(
       alignment: Alignment.topCenter,
       children: <Widget>[
-        _MovieDetailScreenSkeleton(key: key),
+        _AgentDetailScreenSkeleton(key: key),
         header,
       ],
     );
   }
 }
 
-final class _MovieDetailScreenSkeleton extends BaseSkeleton {
-  const _MovieDetailScreenSkeleton({super.key});
+final class _AgentDetailScreenSkeleton extends BaseSkeleton {
+  const _AgentDetailScreenSkeleton({super.key});
 
   @override
   Widget buildSkeleton() {

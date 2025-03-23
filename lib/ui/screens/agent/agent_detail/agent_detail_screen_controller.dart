@@ -14,7 +14,7 @@ import 'agent_detail_screen_args.dart';
 
 final class AgentDetailScreenController extends BaseScreenController<AgentDetailScreenArgs> {
   final Service<ApiService> _apiService;
-  final String _movieId;
+  final String _agentId;
   final bool _isFavorite;
   AgentData? agentDetail;
   final void Function(AgentData)? onUpdateList;
@@ -22,18 +22,18 @@ final class AgentDetailScreenController extends BaseScreenController<AgentDetail
   AgentDetailScreenController(
     super.args,
     this._apiService,
-  )   : _movieId = args.movieId,
+  )   : _agentId = args.agentId,
         _isFavorite = args.isFavorite,
         onUpdateList = args.onUpdateList;
 
   @override
   Future<void> onInitState() async {
     super.onInitState();
-    _getAgentDetail(_movieId);
+    _getAgentDetail(_agentId);
   }
 
   void fetchData() {
-    _getAgentDetail(_movieId);
+    _getAgentDetail(_agentId);
   }
 
   Future<void> saveFavorites() async {

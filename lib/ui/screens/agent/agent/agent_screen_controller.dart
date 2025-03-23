@@ -218,7 +218,7 @@ final class AgentScreenController extends BaseScreenController<DefaultScreenArgs
     AppNavigation.goToAgentDetail(
       context,
       args: AgentDetailScreenArgs(
-          movieId: agentItem.uuid ?? '',
+          agentId: agentItem.uuid ?? '',
           isFavorite: agentItem.isFavorite,
           onUpdateList: (agentData) async {
             await showFavoriteDialog(agentData, isForFavorite: true);

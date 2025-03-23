@@ -7,11 +7,6 @@ import 'app_router.dart';
 abstract final class AppNavigation {
   static final AppRouter _router = AppRouter(navigatorKey: rootNavigatorKey);
   static final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
-  static final GlobalKey<NavigatorState> movieNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'movie');
-  static final GlobalKey<NavigatorState> agentNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'agent');
-  static final GlobalKey<NavigatorState> tabSecondNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'tabSecond');
-  static final GlobalKey<NavigatorState> tabThirdNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'tabThird');
-  static final GlobalKey<NavigatorState> tabFourNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'tabFour');
 
   static RouterConfig<Object> get routerConfig => _router.routerConfig;
 
