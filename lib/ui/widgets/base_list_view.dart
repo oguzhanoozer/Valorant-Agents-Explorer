@@ -1,18 +1,20 @@
+import 'package:agents_explorer/core/configs/constants/app_size.dart';
 import 'package:agents_explorer/core/configs/theme/app_colors.dart';
 import 'package:agents_explorer/core/configs/theme/app_text_styles.dart';
+import 'package:agents_explorer/ui/widgets/custom_widgets/create_adaptive_widgets.dart';
 import 'package:flutter/material.dart';
-
-const double _kLoadMoreIndicatorStroke = 3;
 
 final class BaseListView<T> extends StatefulWidget {
   final List<T> data;
   final Widget Function(BuildContext context, T data) itemBuilder;
   final Widget skeleton;
   final String emptyString;
+  final String? errorMessage;
   final bool isLoading;
   final bool hasMore;
   final VoidCallback? onLoadMore;
   final int pageSize;
+
   final Function()? retryFetch;
 
   const BaseListView({
@@ -20,6 +22,7 @@ final class BaseListView<T> extends StatefulWidget {
     required this.itemBuilder,
     required this.skeleton,
     required this.emptyString,
+    this.errorMessage,
     required this.isLoading,
     required this.hasMore,
     this.onLoadMore,
@@ -57,7 +60,9 @@ class _BaseListViewState<T> extends State<BaseListView<T>> {
       child: widget.data.isEmpty
           ? widget.isLoading
               ? widget.skeleton
-              : _buildEmptyIndicator()
+              : widget.errorMessage != null
+                  ? _buildErrorIndicator()
+                  : _buildEmptyIndicator()
           : ListView.builder(
               controller: _scrollController,
               itemCount: widget.data.length + (widget.hasMore ? 1 : 0),
@@ -74,9 +79,8 @@ class _BaseListViewState<T> extends State<BaseListView<T>> {
   Widget _buildLoadMoreIndicator() {
     return Center(
       child: widget.isLoading
-          ? const CircularProgressIndicator(
+          ? CreateAdaptiveWidgets().adaptiveActivityIndicator(
               color: AppColors.primary,
-              strokeWidth: _kLoadMoreIndicatorStroke,
             )
           : const SizedBox(),
     );
@@ -93,6 +97,33 @@ class _BaseListViewState<T> extends State<BaseListView<T>> {
               color: AppColors.primary,
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildErrorIndicator() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            widget.errorMessage ?? '',
+            style: AppTextStyles.body2_high(
+              color: AppColors.buttonStart,
+            ),
+          ),
+          const SizedBox(height: AppSize.padding),
+          IconButton(
+            onPressed: () {
+              widget.retryFetch?.call();
+            },
+            icon: const Icon(
+              Icons.refresh,
+              color: AppColors.primary,
+              size: AppSize.iconHigh,
+            ),
+          )
         ],
       ),
     );

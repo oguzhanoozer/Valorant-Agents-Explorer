@@ -41,6 +41,9 @@ class MainApp extends StatelessWidget {
               themeMode: model.themeMode,
               routerConfig: AppNavigation.routerConfig,
               supportedLocales: supportedLocales,
+              locale: Locale(model.localization),
+              localeResolutionCallback: (locale, supportedLocales) => Locale(model.localization),
+              localeListResolutionCallback: (locales, supportedLocales) => Locale(model.localization),
               localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
                 GlobalMaterialLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,

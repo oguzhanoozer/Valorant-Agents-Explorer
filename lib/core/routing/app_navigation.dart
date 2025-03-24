@@ -1,4 +1,5 @@
 import 'package:agents_explorer/ui/screens/agent/agent_detail/agent_detail_screen_args.dart';
+import 'package:agents_explorer/ui/screens/splash/splash_screen_screen_args.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -20,9 +21,9 @@ abstract final class AppNavigation {
     await context?.popRoute<T>(result);
   }
 
-  static void goToSplashScreen(BuildContext? context) {
+  static void goToSplashScreen(BuildContext? context, {required SplashScreenScreenArgs args}) {
     (context ?? rootNavigatorKey.currentContext)?.router.replaceAll(
-      <PageRouteInfo>[SplashScreenRoute()],
+      <PageRouteInfo>[SplashScreenRoute(args: args)],
       updateExistingRoutes: false,
     );
   }

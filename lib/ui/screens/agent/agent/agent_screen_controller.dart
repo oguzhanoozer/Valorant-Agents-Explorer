@@ -40,6 +40,7 @@ final class AgentScreenController extends BaseScreenController<DefaultScreenArgs
   final GlobalKey<ScaffoldState> mapScaffoldKey = GlobalKey<ScaffoldState>();
   List<AgentData> agentList = [];
   List<AgentData> visibleAgents = [];
+  String? errorMessage;
 
   List<AgentData> favoriteAgentList = [];
   final Rx<void> fetchNotifier = Rx<void>(null);
@@ -242,8 +243,9 @@ final class AgentScreenController extends BaseScreenController<DefaultScreenArgs
           await _loadMoreAgents(page);
           setBusy(false);
         }, failure: (ApiException e) {
-          setBusy(false);
+          errorMessage = AppStrings.errorOccured();
           DialogUtils.showErrorDialog(context, message: AppStrings.errorOccured());
+          setBusy(false);
         });
       },
     );

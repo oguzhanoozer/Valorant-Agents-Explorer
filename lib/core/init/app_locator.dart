@@ -2,6 +2,7 @@ import 'package:agents_explorer/core/services/theme/theme_service.dart';
 import 'package:agents_explorer/ui/screens/agent/agent/agent_screen_controller.dart';
 import 'package:agents_explorer/ui/screens/agent/agent_detail/agent_detail_screen_args.dart';
 import 'package:agents_explorer/ui/screens/agent/agent_detail/agent_detail_screen_controller.dart';
+import 'package:agents_explorer/ui/screens/splash/splash_screen_screen_args.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../ui/screens/base_screen_args.dart';
@@ -43,7 +44,7 @@ abstract final class ControllerLocator {
       );
     }
 
-    registerController<SplashScreenController, DefaultScreenArgs>(
+    registerController<SplashScreenController, SplashScreenScreenArgs>(
       (_) => SplashScreenController(_),
     );
 

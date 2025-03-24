@@ -1,9 +1,11 @@
+import 'package:agents_explorer/core/configs/constants/app_images.dart';
 import 'package:agents_explorer/core/configs/constants/app_size.dart';
 import 'package:agents_explorer/core/configs/constants/app_strings.dart';
 import 'package:agents_explorer/core/configs/theme/app_colors.dart';
 import 'package:agents_explorer/core/configs/theme/app_text_styles.dart';
 import 'package:agents_explorer/core/routing/app_navigation.dart';
 import 'package:agents_explorer/core/theme/theme_controller.dart';
+import 'package:agents_explorer/ui/screens/splash/splash_screen_screen_args.dart';
 import 'package:agents_explorer/ui/widgets/app_bar.dart';
 import 'package:agents_explorer/ui/widgets/scaffold.dart';
 import 'package:auto_route/auto_route.dart';
@@ -62,31 +64,31 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
                       ],
                     ),
                   ),
-                  // const SizedBox(height: AppSize.paddingHigh),
-                  // subItemView(
-                  //   child: Row(
-                  //     children: [
-                  //       Expanded(
-                  //           child: Text(
-                  //         model.localization == "en" ? AppStrings.english() : AppStrings.turkish(),
-                  //         style: AppTextStyles.body3_high(color: AppColors.primary),
-                  //       )),
-                  //       localizationView(
-                  //         title: "Tr",
-                  //         icon: AppImages.tr(),
-                  //         isSelected: model.localization == "tr",
-                  //         onPressed: () => model.toggleLocalization("tr", context),
-                  //       ),
-                  //       const SizedBox(width: AppSize.padding),
-                  //       localizationView(
-                  //         title: "Eng",
-                  //         icon: AppImages.en(),
-                  //         isSelected: model.localization == "en",
-                  //         onPressed: () => model.toggleLocalization("en", context),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
+                  const SizedBox(height: AppSize.paddingHigh),
+                  subItemView(
+                    child: Row(
+                      children: [
+                        Expanded(
+                            child: Text(
+                          model.localization == "en" ? AppStrings.english() : AppStrings.turkish(),
+                          style: AppTextStyles.body3_high(color: AppColors.primary),
+                        )),
+                        localizationView(
+                          title: "Tr",
+                          icon: AppImages.tr(),
+                          isSelected: model.localization == "tr",
+                          onPressed: () => model.toggleLocalization("tr", context),
+                        ),
+                        const SizedBox(width: AppSize.padding),
+                        localizationView(
+                          title: "Eng",
+                          icon: AppImages.en(),
+                          isSelected: model.localization == "en",
+                          onPressed: () => model.toggleLocalization("en", context),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -116,7 +118,13 @@ class _SettingsScreenViewState extends State<SettingsScreenView> {
               style: AppTextStyles.body3_high(color: AppColors.primary),
             ),
             IconButton(
-              onPressed: () => onPressed(),
+              onPressed: () {
+                onPressed();
+                AppNavigation.goToSplashScreen(
+                  context,
+                  args: const SplashScreenScreenArgs(),
+                );
+              },
               icon: icon,
             )
           ],

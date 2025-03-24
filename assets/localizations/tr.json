@@ -16,7 +16,7 @@
     "list": "Ana Sayfa",
     "favorite": "Favoriler",
     "emptyList": "Henüz bir içerik bulunmuyor",
-    "emptyFavoriteList": "Favori listeniz şu an boş.",
+    "emptyFavoriteList": "Favori listeniz şu an boş",
     "agents": "Ajanlar",
     "favAgents": "Favori Ajanlar",
     "abilities": "Yetenekler",
@@ -32,5 +32,6 @@
     "darkTheme": "Koyu Tema",
     "lightTheme": "Aydınlık Tema",
     "settings": "Ayarlar",
-    "loadingData": "Veriler Yükleniyor"
+    "loadingData": "Veriler Yükleniyor",
+    "languageChangesApplying": "Dil tercihiniz uygulanıyor.\nVeriler dil tercihinize göre yükleniyor."
 }

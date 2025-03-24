@@ -25,7 +25,7 @@ final class AgentScreenListView extends StatelessWidget with BaseScreenWidgetMix
 
     return CustomScaffold(
       appBar: CustomAppBar(
-        title: AppStrings.settings(),
+        title: AppStrings.agents(),
         actions: [
           IconButton(
             onPressed: () {
@@ -47,6 +47,7 @@ final class AgentScreenListView extends StatelessWidget with BaseScreenWidgetMix
 
           return BaseListView<AgentData>(
             data: controller.visibleAgents,
+            errorMessage: controller.errorMessage,
             retryFetch: controller.fetch,
             skeleton: const AgentScreenListSkeleton(),
             emptyString: AppStrings.emptyList(),

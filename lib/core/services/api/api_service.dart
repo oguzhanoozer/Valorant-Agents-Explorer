@@ -28,12 +28,12 @@ final class ApiService extends BaseService<ApiService> {
             },
           ),
         ) {
-    _api.interceptors.addAll(
-      <dio.Interceptor>[
-        CacheInterceptor(),
-        if (kDebugMode) LoggingInterceptor(),
-      ],
-    );
+    // _api.interceptors.addAll(
+    //   <dio.Interceptor>[
+    //     CacheInterceptor(),
+    //     if (kDebugMode) LoggingInterceptor(),
+    //   ],
+    // );
     agent = AgentsClient(_api);
   }
 

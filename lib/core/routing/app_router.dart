@@ -3,6 +3,7 @@ import 'package:agents_explorer/ui/screens/agent/agent_detail/agent_detail_scree
 import 'package:agents_explorer/ui/screens/agent/agent_detail/agent_detail_screen_view.dart';
 import 'package:agents_explorer/ui/screens/favorites/favorites_screen_view.dart';
 import 'package:agents_explorer/ui/screens/settings/settings_screen_view.dart';
+import 'package:agents_explorer/ui/screens/splash/splash_screen_screen_args.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 

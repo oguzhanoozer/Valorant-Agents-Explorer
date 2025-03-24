@@ -38,8 +38,7 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     MainScreenRoute.name: (routeData) {
-      final args = routeData.argsAs<MainScreenRouteArgs>(
-          orElse: () => const MainScreenRouteArgs());
+      final args = routeData.argsAs<MainScreenRouteArgs>(orElse: () => const MainScreenRouteArgs());
       return AutoRoutePage<void>(
         routeData: routeData,
         child: MainScreenView(
@@ -55,8 +54,7 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     SplashScreenRoute.name: (routeData) {
-      final args = routeData.argsAs<SplashScreenRouteArgs>(
-          orElse: () => const SplashScreenRouteArgs());
+      final args = routeData.argsAs<SplashScreenRouteArgs>(orElse: () => const SplashScreenRouteArgs());
       return AutoRoutePage<void>(
         routeData: routeData,
         child: SplashScreenView(
@@ -86,8 +84,7 @@ class AgentDetailScreenRoute extends PageRouteInfo<AgentDetailScreenRouteArgs> {
 
   static const String name = 'AgentDetailScreenRoute';
 
-  static const PageInfo<AgentDetailScreenRouteArgs> page =
-      PageInfo<AgentDetailScreenRouteArgs>(name);
+  static const PageInfo<AgentDetailScreenRouteArgs> page = PageInfo<AgentDetailScreenRouteArgs>(name);
 }
 
 class AgentDetailScreenRouteArgs {
@@ -152,8 +149,7 @@ class MainScreenRoute extends PageRouteInfo<MainScreenRouteArgs> {
 
   static const String name = 'MainScreenRoute';
 
-  static const PageInfo<MainScreenRouteArgs> page =
-      PageInfo<MainScreenRouteArgs>(name);
+  static const PageInfo<MainScreenRouteArgs> page = PageInfo<MainScreenRouteArgs>(name);
 }
 
 class MainScreenRouteArgs {
@@ -191,7 +187,7 @@ class SettingsScreenRoute extends PageRouteInfo<void> {
 class SplashScreenRoute extends PageRouteInfo<SplashScreenRouteArgs> {
   SplashScreenRoute({
     Key? key,
-    DefaultScreenArgs args = const DefaultScreenArgs(),
+    SplashScreenScreenArgs args = const SplashScreenScreenArgs(),
     List<PageRouteInfo>? children,
   }) : super(
           SplashScreenRoute.name,
@@ -204,19 +200,18 @@ class SplashScreenRoute extends PageRouteInfo<SplashScreenRouteArgs> {
 
   static const String name = 'SplashScreenRoute';
 
-  static const PageInfo<SplashScreenRouteArgs> page =
-      PageInfo<SplashScreenRouteArgs>(name);
+  static const PageInfo<SplashScreenRouteArgs> page = PageInfo<SplashScreenRouteArgs>(name);
 }
 
 class SplashScreenRouteArgs {
   const SplashScreenRouteArgs({
     this.key,
-    this.args = const DefaultScreenArgs(),
+    this.args = const SplashScreenScreenArgs(),
   });
 
   final Key? key;
 
-  final DefaultScreenArgs args;
+  final SplashScreenScreenArgs args;
 
   @override
   String toString() {

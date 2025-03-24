@@ -39,7 +39,8 @@ enum AppStrings {
   darkTheme(),
   lightTheme(),
   settings(),
-  loadingData();
+  loadingData(),
+  languageChangesApplying();
 
   String call([Map<String, dynamic> replaceMap = const <String, dynamic>{}]) {
     String result = get(name);

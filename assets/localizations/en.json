@@ -32,5 +32,6 @@
     "darkTheme": "Dark Theme",
     "lightTheme": "Light Theme",
     "settings": "Settings",
-    "loadingData": "Loading Data"
+    "loadingData": "Loading Data",
+    "languageChangesApplying": "Your language preference is applied.\nData is loaded according to your language preference."
 }
