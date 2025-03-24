@@ -1,5 +1,4 @@
 import 'package:agents_explorer/core/services/theme/theme_service.dart';
-import 'package:agents_explorer/core/theme/theme_controller.dart';
 import 'package:agents_explorer/ui/screens/agent/agent/agent_screen_controller.dart';
 import 'package:agents_explorer/ui/screens/agent/agent_detail/agent_detail_screen_args.dart';
 import 'package:agents_explorer/ui/screens/agent/agent_detail/agent_detail_screen_controller.dart';
