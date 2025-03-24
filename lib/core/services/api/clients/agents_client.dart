@@ -1,7 +1,5 @@
-import 'package:agents_explorer/core/init/app_locator.dart';
 import 'package:agents_explorer/core/models/agents/api/agent_model.dart';
 import 'package:agents_explorer/core/services/localization/localization_service.dart';
-import 'package:agents_explorer/core/services/theme/theme_service.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/dio.dart' as dio;
 

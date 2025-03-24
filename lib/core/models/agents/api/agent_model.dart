@@ -75,7 +75,7 @@ final class AgentData extends BaseModel {
   final bool isFavorite;
   final FavoriteModel? favoriteModel;
 
-  const AgentData({
+  const AgentData._({
     this.uuid,
     this.displayName,
     this.description,
@@ -104,7 +104,7 @@ final class AgentData extends BaseModel {
   });
 
   factory AgentData.fromJson(Map<String, dynamic> json) {
-    return AgentData(
+    return AgentData._(
       uuid: json['uuid'] as String?,
       displayName: json['displayName'] as String?,
       description: json['description'] as String?,
@@ -166,7 +166,7 @@ final class AgentData extends BaseModel {
     bool? isFavorite,
     FavoriteModel? favoriteModel,
   }) {
-    return AgentData(
+    return AgentData._(
       uuid: uuid,
       displayName: displayName,
       description: description,
@@ -203,7 +203,7 @@ final class Role extends BaseModel {
   final String? displayIcon;
   final String? assetPath;
 
-  const Role({
+  const Role._({
     this.uuid,
     this.displayName,
     this.description,
@@ -212,7 +212,7 @@ final class Role extends BaseModel {
   });
 
   factory Role.fromJson(Map<String, dynamic> json) {
-    return Role(
+    return Role._(
       uuid: json['uuid'] as String?,
       displayName: json['displayName'] as String?,
       description: json['description'] as String?,
@@ -241,7 +241,7 @@ final class RecruitmentData extends BaseModel {
   final String? startDate;
   final String? endDate;
 
-  const RecruitmentData({
+  const RecruitmentData._({
     this.counterId,
     this.milestoneId,
     this.milestoneThreshold,
@@ -252,7 +252,7 @@ final class RecruitmentData extends BaseModel {
   });
 
   factory RecruitmentData.fromJson(Map<String, dynamic> json) {
-    return RecruitmentData(
+    return RecruitmentData._(
       counterId: json['counterId'] as String?,
       milestoneId: json['milestoneId'] as String?,
       milestoneThreshold: json['milestoneThreshold'] as int?,
@@ -282,7 +282,7 @@ final class Abilities extends BaseModel {
   final String? description;
   final String? displayIcon;
 
-  const Abilities({
+  const Abilities._({
     this.slot,
     this.displayName,
     this.description,
@@ -290,7 +290,7 @@ final class Abilities extends BaseModel {
   });
 
   factory Abilities.fromJson(Map<String, dynamic> json) {
-    return Abilities(
+    return Abilities._(
       slot: json['slot'] as String?,
       displayName: json['displayName'] as String?,
       description: json['description'] as String?,

@@ -1,4 +1,3 @@
-import 'package:agents_explorer/core/configs/constants/app_images.dart';
 import 'package:agents_explorer/core/configs/constants/app_size.dart';
 import 'package:agents_explorer/core/configs/constants/app_strings.dart';
 import 'package:agents_explorer/core/configs/theme/app_colors.dart';

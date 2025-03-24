@@ -1,5 +1,5 @@
-import 'package:agents_explorer/core/configs/constants/app_size.dart';
 import 'package:agents_explorer/core/configs/theme/app_colors.dart';
+import 'package:agents_explorer/core/configs/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 const double _kLoadMoreIndicatorStroke = 3;
@@ -87,16 +87,10 @@ class _BaseListViewState<T> extends State<BaseListView<T>> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(widget.emptyString),
-          const SizedBox(height: AppSize.padding),
-          IconButton(
-            onPressed: () {
-              widget.retryFetch?.call();
-            },
-            icon: const Icon(
-              Icons.refresh_outlined,
+          Text(
+            widget.emptyString,
+            style: AppTextStyles.body2_high(
               color: AppColors.primary,
-              size: AppSize.iconHigh,
             ),
           ),
         ],

@@ -42,28 +42,4 @@ abstract final class AppColors {
   static const Color onSurfaceHighDark = Color.fromARGB(255, 255, 255, 255);
   static const Color onSurfaceMediumDark = Color.fromARGB(255, 180, 180, 180);
   static const Color onSurfaceLowDark = Color.fromARGB(255, 120, 120, 120);
-
-// Gradient colors for buttons
-  static const Color primaryButtonStartDark = Color.fromARGB(255, 15, 110, 130);
-  static const Color primaryButtonEndDark = Color.fromARGB(255, 23, 70, 102);
-  static const Color cancelButtonStartDark = Color.fromARGB(255, 115, 115, 115);
-  static const Color cancelButtonEndDark = Color.fromARGB(255, 100, 100, 100);
-  static const Color buttonStartDark = Color.fromARGB(255, 160, 40, 40);
-  static const Color buttonEndDark = Color.fromARGB(255, 124, 39, 39);
-  static const Color disabledButtonForegroundDark = Color.fromARGB(255, 100, 100, 100);
-
-// Other colors
-  static const Color navigationBarBackgroundDark = backgroundDark;
-  static const Color navigationBarItemSelectedDark = primaryDark;
-  static const Color navigationBarItemUnselectedDark = onSurfaceLowDark;
-  static const Color hyperTextColorDark = Colors.blue;
-  static const Color iconDark = onSurfaceMediumDark;
-  static const Color badgeDark = Color.fromARGB(255, 148, 42, 130);
-  static const Color markerMyLocationDark = Color.fromARGB(255, 51, 85, 150);
-
-  static const Color sensorActiveDark = Color.fromARGB(255, 34, 139, 34);
-  static const Color sensorUnreachableDark = Color.fromARGB(255, 95, 95, 95);
-
-  static const Color shimmerBaseDark = Color.fromARGB(255, 50, 50, 50);
-  static const Color shimmerHighlightDark = Color.fromARGB(255, 70, 70, 70);
 }

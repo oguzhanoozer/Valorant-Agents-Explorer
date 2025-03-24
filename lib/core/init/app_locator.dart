@@ -110,8 +110,8 @@ abstract final class ServiceLocator {
       );
     }
 
-    registerService<ThemeService>(
-      () => ThemeService(),
+    registerService<LocalStorageService>(
+      () => LocalStorageService(),
     );
 
     registerService<ApiService>(
@@ -121,8 +121,9 @@ abstract final class ServiceLocator {
       () => LocalizationService(),
     );
 
-    registerService<LocalStorageService>(
-      () => LocalStorageService(),
+    registerService<ThemeService>(
+      () => ThemeService(),
+      dependsOn: <Type>[LocalStorageService],
     );
   }
 

@@ -5,7 +5,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:stacked/stacked.dart';
 
 import 'core/configs/theme/app_colors.dart';
-import 'core/configs/theme/app_theme.dart';
 import 'core/init/app_initializer.dart';
 import 'core/routing/app_navigation.dart';
 import 'core/services/localization/localization_service.dart';
@@ -37,7 +36,7 @@ class MainApp extends StatelessWidget {
           viewModelBuilder: () => ThemeController(),
           builder: (context, model, child) {
             return MaterialApp.router(
-              theme: model.lightTheme,
+              theme: model.currentThemeData,
               darkTheme: model.darkTheme,
               themeMode: model.themeMode,
               routerConfig: AppNavigation.routerConfig,

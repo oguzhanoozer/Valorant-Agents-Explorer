@@ -1,8 +1,6 @@
 import 'package:agents_explorer/core/configs/constants/app_size.dart';
 import 'package:agents_explorer/core/configs/theme/app_colors.dart';
-import 'package:agents_explorer/core/configs/theme/app_text_styles.dart';
 import 'package:agents_explorer/core/routing/app_navigation.dart';
-import 'package:agents_explorer/main.dart';
 import 'package:agents_explorer/ui/widgets/base_list_view.dart';
 import 'package:agents_explorer/core/models/agents/api/agent_model.dart';
 import 'package:agents_explorer/ui/screens/agent/agent/agent_screen_controller.dart';

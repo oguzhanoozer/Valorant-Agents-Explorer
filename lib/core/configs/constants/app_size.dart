@@ -38,17 +38,6 @@ abstract final class AppSize {
   static const EdgeInsets labelButtonPadding = EdgeInsets.symmetric(horizontal: paddingHigh, vertical: paddingLow);
   static const EdgeInsets labelButtonWithIconPadding = EdgeInsets.only(right: paddingLow);
 
-  static const double splashBigLogoAspectRatio = 4;
-  static const double splashBigLogoWidthFactor = 0.50;
-  static const double splashSmallLogoAspectRatio = 5;
-  static const double splashSmallLogoWidthFactor = 0.50;
-
-  static const double loginBackgroundOpacity = 0.95;
-  static const double loginBigLogoAspectRatio = splashBigLogoAspectRatio;
-  static const double loginBigLogoWidthFactor = splashBigLogoAspectRatio;
-  static const double loginSmallLogoAspectRatio = 6;
-  static const double loginSmallLogoWidthFactor = 0.30;
-
   static const double cupertinoActivityIndicatorRadius = 16;
   static const double materialActivityIndicatorStrokeWidth = 3;
 }

@@ -85,7 +85,7 @@ abstract final class AppTheme {
     dialogTheme: const DialogTheme(
       backgroundColor: AppColors.surfaceDark,
     ),
-    colorScheme: ColorScheme.dark(
+    colorScheme: const ColorScheme.dark(
       brightness: Brightness.dark,
       surface: AppColors.primary,
       primary: AppColors.primaryDark,
@@ -93,7 +93,7 @@ abstract final class AppTheme {
       onPrimary: AppColors.onPrimaryDark,
       onSurfaceVariant: AppColors.onPrimary,
     ),
-    appBarTheme: AppBarTheme(
+    appBarTheme: const AppBarTheme(
       centerTitle: true,
       scrolledUnderElevation: 0,
       backgroundColor: AppColors.backgroundDark,
@@ -101,15 +101,7 @@ abstract final class AppTheme {
       iconTheme: IconThemeData(size: 24, opacity: 1, color: AppColors.onSurfaceHighDark),
       actionsIconTheme: IconThemeData(size: 24, opacity: 1, color: AppColors.onSurfaceHighDark),
     ),
-    iconTheme: IconThemeData(size: 24, opacity: 1, color: AppColors.onSurfaceHighDark),
-    dividerTheme: DividerThemeData(
-      thickness: AppSize.dividerThickness,
-      space: 0,
-      color: AppColors.onSurfaceLowDark,
-    ),
-    badgeTheme: BadgeThemeData(
-      backgroundColor: AppColors.badgeDark,
-    ),
+    iconTheme: const IconThemeData(size: 24, opacity: 1, color: AppColors.onSurfaceHighDark),
     bottomSheetTheme: const BottomSheetThemeData(
       elevation: 0,
     ),

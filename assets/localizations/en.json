@@ -16,7 +16,7 @@
     "list": "Home",
     "favorite": "Favorite",
     "emptyList": "No content available yet",
-    "emptyFavoriteList": "Your favorite list is currently empty. Add your first favorite now!",
+    "emptyFavoriteList": "Your favorite list is currently empty.",
     "agents": "Agents",
     "favAgents": "Favorite Agents",
     "abilities": "Abilities",
